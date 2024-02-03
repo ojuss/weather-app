@@ -1,4 +1,4 @@
-const apiKey = 'f298acdc0a78372eaa58d3e2ae08ff40';
+import {apiKey} from './api.js';
 
 async function fetchWeather (cityName) {
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`);
