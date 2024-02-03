@@ -1,11 +1,28 @@
 const apiKey = 'f298acdc0a78372eaa58d3e2ae08ff40';
-const cityName = "Panipat";
 
-async function fetchWeather() {
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=mertics&appid=${apiKey}`);
+async function fetchWeather (cityName) {
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`);
 
   const data = await response.json();
   console.log(data);
+  updateWeather(data);
 }
 
-fetchWeather();
+const inputElement = document.querySelector('.input-city');
+const buttonElement = document.querySelector('.input-btn');
+const cityElement = document.querySelector('.city-name');
+const tempElement = document.querySelector('.temp');
+const humidElement = document.querySelector('.humidity');
+const windElement = document.querySelector('.wind-speed');
+
+function updateWeather (data) {
+    cityElement.innerHTML = `Weather in ${data.name}`;
+    tempElement.innerHTML = `${data.main.temp}`;
+    humidElement.innerHTML = `Humidity : ${data.main.humidity}%`;
+    windElement.innerHTML = `Wind Speed : ${data.wind.speed}`;
+}
+
+buttonElement.addEventListener('click', () => {
+  const cityName = inputElement.value;
+  fetchWeather(cityName);
+});
